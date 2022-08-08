@@ -14,20 +14,30 @@ const loadImage = () => {
    previewImg.src = URL.createObjectURL(file); //passing file url as preview img src
    previewImg.addEventListener('load', () => {
       document.querySelector('.container').classList.remove('disable');
-   })
+   });
 }
 
 filterOptions.forEach(option => {
-   option.addEventListener('click', () =>{
+   option.addEventListener('click', () =>{ //adding click event listener to all filter buttons
       document.querySelector('filter .active').classList.remove('active');
+      option.classList.add('active');
       filterName.innerText = option.innerText;
    });
 })
 
 const updateFilter = () => {
    filterValue.innerText = `${filterSlider.value}%`;
-   const selectedFilter = document.querySelector('.filter .active');
-}
+   const selectedFilter = document.querySelector('.filter .active'); // getting selected filter button
+
+   if(selectedFilter.id === 'brightness') {
+         brightness = filterSlider.value;
+   } else if(selectedFilter.id === 'saturation') {
+         saturation = filterSlider.value;
+   } else if(selectedFilter.id === 'inversion') {
+      inversion = filterSlider.value;
+   } else {
+   grayscale = filterSlider.value;
+   }
 
 fileInput.addEventListener('change', loadImage);
 filterSlider.addEventListener('input', updateFilter);
